@@ -1,22 +1,22 @@
-# Aaky's wedding website
+# Anshul & Kristin — wedding site
 
-A single-page static site. No build step, no dependencies.
+Three full-screen scenes in one page: **home → RSVP → thank you**. No build step.
 
 ## Files
 
-- `index.html` — all the content. Search for `TODO` and the placeholder text (names, date, venues, links).
-- `styles.css` — colors and fonts live in the `:root` block at the top.
-- `script.js` — the countdown. It reads the date from the `<time datetime>` in the hero, so change it there only.
-- `.github/workflows/deploy.yml` — deploys `main` to GitHub Pages on every push.
+- `index.html` — the words, and the Notion form link (`src` on the `<iframe>`).
+- `styles.css` — the **KNOBS** block at the top: fonts, sizes, text placement, images, overlay, timing.
+- `script.js` — scene switching and the animations' timing. You shouldn't need to touch it.
+- `images/home.jpg`, `images/rsvp.jpg`, `images/thanks.jpg` — drop your photos in with these names (or change the paths in the knobs block).
 
-## Run locally
-
-Open `index.html` in a browser, or serve the folder:
+## Try it locally
 
 ```sh
 python3 -m http.server 8000
 ```
 
+Then open http://localhost:8000. To check on your phone, open `http://<your-mac's-ip>:8000` on the same Wi-Fi.
+
 ## Deploy
 
-Push to `main`. In the repo settings, set **Pages → Source** to **GitHub Actions** once, and the workflow does the rest.
+Push to `main` and GitHub Pages redeploys: https://kristinyim.github.io/aaky-wedding/
