@@ -234,16 +234,21 @@ button {
         in front of us, and the cutout is sized to the narrower screen. ---- */
 @media (max-width: 767px) {
   :root {
-    --size-eyebrow: clamp(1.6rem, 7.5vw, 2.3rem);
-    --size-names: clamp(3.8rem, 20vw, 5.8rem);
-    --size-meta: clamp(1.25rem, 5.5vw, 1.7rem);
-    --copy-top: 12vh;
-    --couple-height: 64vh;
-    --couple-max-width: 120vw;
+    --size-eyebrow: clamp(1.9rem, 9vw, 2.8rem);
+    --size-names: clamp(4.4rem, 24vw, 7rem);
+    --size-meta: clamp(1.6rem, 7.5vw, 2.3rem);
+    --couple-height: 64vh;          /* full size; the sides can crop off the screen */
+    --copy-overlap: 3vh;            /* how far the names dip behind our heads */
     --couple-shift: -4vw;
     --couple-sink: 1vh;
   }
 
+  /* anchor the words to the top of the cutout, not the top of the screen, so the
+     overlap with our heads is the same on short and tall phones */
+  .home-copy {
+    top: auto;
+    bottom: calc(var(--couple-height) - var(--couple-sink) - var(--copy-overlap));
+  }
   .home-copy .names { white-space: normal; }
   .home-copy .names .amp::after { content: "\A"; white-space: pre; }  /* break after "&" */
 
