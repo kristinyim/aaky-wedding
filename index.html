@@ -12,32 +12,20 @@
   <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ctext y='.9em' font-size='90'%3E%F0%9F%92%8D%3C/text%3E%3C/svg%3E" />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <!-- Fonts: script for the names, serif for everything else. Swap here + in the KNOBS block. -->
-  <link href="https://fonts.googleapis.com/css2?family=Pinyon+Script&family=Cormorant+Garamond:ital,wght@0,400;0,500;1,400;1,500&display=swap" rel="stylesheet" />
+  <!-- Swap fonts here, then update --font-names / --font-small in styles.css -->
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,300;1,400&family=Inter:wght@400;500&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="styles.css" />
 </head>
 <body>
 
-  <!--
-    Every bit of text is a "piece". Pieces animate one after another (order = --i)
-    and each has its own nudge/tilt in the PLACEMENT block of styles.css.
-  -->
-
   <!-- SCENE 1: HOME -------------------------------------------------------- -->
   <section class="scene scene-home" id="home" data-scene="home">
     <div class="bg" aria-hidden="true"></div>
-    <div class="content poster">
-      <p class="piece p-eyebrow" style="--i: 0">the wedding of</p>
-      <h1 class="names">
-        <span class="piece script p-name1" style="--i: 1">Anshul</span>
-        <span class="row">
-          <span class="piece p-amp" style="--i: 2">&amp;</span>
-          <span class="piece script p-name2" style="--i: 3">Kristin</span>
-        </span>
-      </h1>
-      <p class="piece p-date" style="--i: 4">August 7</p>
-      <p class="piece p-note" style="--i: 5">we can't wait<br />to celebrate with you</p>
-      <button class="piece button p-button" type="button" data-go="rsvp" style="--i: 6">RSVP</button>
+    <div class="content home-text">
+      <p class="eyebrow">the wedding of</p>
+      <h1 class="names">Anshul <span class="amp">&amp;</span> Kristin</h1>
+      <p class="date">August 7</p>
+      <button class="button" type="button" data-go="rsvp">RSVP</button>
     </div>
   </section>
 
@@ -45,8 +33,8 @@
   <section class="scene scene-rsvp" id="rsvp" data-scene="rsvp" hidden>
     <div class="bg" aria-hidden="true"></div>
     <div class="content rsvp-content">
-      <h2 class="piece script rsvp-title" style="--i: 0">rsvp</h2>
-      <div class="piece form-frame" style="--i: 1">
+      <h2 class="rsvp-title">RSVP</h2>
+      <div class="form-frame">
         <!-- Paste your Notion form's share link as the src -->
         <iframe
           id="rsvp-form"
@@ -56,23 +44,18 @@
           allow="clipboard-write"
         ></iframe>
       </div>
-      <button class="piece button" type="button" data-go="thanks" style="--i: 2">I've sent my RSVP</button>
-      <button class="piece text-button" type="button" data-go="home" style="--i: 3">Back</button>
+      <button class="button" type="button" data-go="thanks">I've sent my RSVP</button>
+      <button class="text-button" type="button" data-go="home">Back</button>
     </div>
   </section>
 
   <!-- SCENE 3: THANK YOU --------------------------------------------------- -->
   <section class="scene scene-thanks" id="thanks" data-scene="thanks" hidden>
     <div class="bg" aria-hidden="true"></div>
-    <div class="content poster">
-      <p class="piece p-eyebrow" style="--i: 0">with all our love</p>
-      <h2 class="names">
-        <span class="piece script p-name1" style="--i: 1">thank</span>
-        <span class="row">
-          <span class="piece script p-name2" style="--i: 2">you</span>
-        </span>
-      </h2>
-      <p class="piece p-date" style="--i: 3">see you August 7</p>
+    <div class="content thanks-text">
+      <p class="eyebrow">see you on</p>
+      <h2 class="names">thank you</h2>
+      <p class="date">August 7</p>
     </div>
   </section>
 

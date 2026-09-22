@@ -1,74 +1,48 @@
 /* =========================================================================
-   KNOBS — fonts, colors, sizes, images, timing.
+   KNOBS — everything you'll want to play with lives here.
    ========================================================================= */
 :root {
   /* Fonts (load them in index.html first) */
-  --font-script: "Pinyon Script", "Snell Roundhand", cursive;
-  --font-serif: "Cormorant Garamond", "Georgia", serif;
+  --font-names: "Cormorant Garamond", "Georgia", serif;
+  --font-small: "Inter", system-ui, sans-serif;
 
   /* Sizes. clamp(min, preferred, max) scales with the screen. */
-  --size-script: clamp(3.75rem, 17vw, 8.5rem);   /* the names */
-  --size-amp: clamp(1.6rem, 6vw, 3rem);
-  --size-eyebrow: clamp(0.85rem, 3vw, 1.15rem);
-  --size-date: clamp(1rem, 3.6vw, 1.4rem);
-  --size-note: clamp(0.6rem, 2.1vw, 0.75rem);
+  --size-eyebrow: clamp(0.75rem, 2.5vw, 0.95rem);
+  --size-names: clamp(2.75rem, 11vw, 6.5rem);
+  --size-date: clamp(1.1rem, 3.5vw, 1.6rem);
 
-  /* Color */
-  --text-color: #8f2a1a;                          /* rust, like the poster */
-  --text-halo: 0 1px 14px rgba(255, 243, 226, 0.55); /* soft light glow behind text */
+  /* Text style */
+  --weight-names: 300;
+  --italic-names: normal;           /* normal | italic */
+  --tracking-eyebrow: 0.3em;
+  --text-color: #fff;
+  --text-shadow: 0 2px 24px rgba(0, 0, 0, 0.35);
 
-  /* Where the block sits. Padding from the top/left edge of the screen. */
-  --poster-top: clamp(1.25rem, 5vh, 3rem);
-  --poster-left: clamp(1.25rem, 6vw, 4rem);
+  /* Placement of the home text block inside the screen */
+  --text-align: center;             /* left | center | right */
+  --text-justify: center;           /* vertical: flex-start | center | flex-end */
+  --text-items: center;             /* horizontal: flex-start | center | flex-end */
+  --text-pad: clamp(1.5rem, 6vw, 4rem);
+  --text-shift-y: -10vh;            /* nudge the block up (negative) or down */
 
   /* Images. If a file is missing, the gradient shows instead. */
   --bg-home: url("images/home.jpg");
   --bg-rsvp: url("images/rsvp.jpg");
   --bg-thanks: url("images/thanks.jpg");
   --bg-fallback: linear-gradient(160deg, #3b2f2a, #1a1714);
-  --bg-position-home: 55% 50%;                    /* which part of the photo stays in view when cropped */
+  --bg-overlay: rgba(0, 0, 0, 0.25); /* darkens the photo so text stays readable */
+  --bg-position-home: 55% 50%;      /* which part of the photo stays in view when cropped */
   --bg-position-rsvp: center;
   --bg-position-thanks: center;
 
-  /* A pale haze at the top (like the poster's sky) so the rust text reads over foliage. */
-  --bg-overlay-home: linear-gradient(to bottom, rgba(255, 246, 232, 0.72), rgba(255, 246, 232, 0.35) 40%, rgba(0, 0, 0, 0.05) 70%);
-  --bg-overlay-rsvp: linear-gradient(to bottom, rgba(255, 246, 232, 0.5), rgba(0, 0, 0, 0.15));
-  --bg-overlay-thanks: linear-gradient(to bottom, rgba(255, 246, 232, 0.72), rgba(255, 246, 232, 0.35) 40%, rgba(0, 0, 0, 0.05) 70%);
-
   /* Button */
-  --button-color: var(--text-color);
-  --button-border: currentColor;
-  --button-bg: rgba(255, 246, 232, 0.35);
+  --button-bg: rgba(255, 255, 255, 0.92);
+  --button-color: #1a1714;
 
   /* Animation timing */
-  --leave: 500ms;
-  --enter: 650ms;
-  --stagger: 55ms;   /* gap between each piece */
+  --leave: 550ms;
+  --enter: 700ms;
 }
-
-/* =========================================================================
-   PLACEMENT — nudge (--x, --y), tilt (--r), indent from the left (--indent)
-   and gap above (--gap) for each piece. Positive x → right, positive y → down.
-   ========================================================================= */
-@property --x      { syntax: "<length-percentage>"; inherits: false; initial-value: 0px; }
-@property --y      { syntax: "<length-percentage>"; inherits: false; initial-value: 0px; }
-@property --r      { syntax: "<angle>";             inherits: false; initial-value: 0deg; }
-@property --indent { syntax: "<length-percentage>"; inherits: false; initial-value: 0px; }
-@property --gap    { syntax: "<length-percentage>"; inherits: false; initial-value: 0px; }
-
-.p-eyebrow { --x: 0.35rem; --y: 0px;     --r: 0deg; }
-.p-name1   { --x: 0px;     --y: 0px;     --r: -3deg; }
-.p-amp     { --x: 0px;     --y: -0.35em; --r: 0deg; }
-.p-name2   { --x: 0.25em;  --y: 0px;     --r: 2deg; }
-.p-date    { --x: 0px;     --y: 0px;     --r: -2deg; }
-.p-note    { --x: 0px;     --y: 0px;     --r: 0deg; }
-.p-button  { --x: 0.25rem; --y: 0px;     --r: 0deg; }
-
-/* Indents (--indent) and vertical gaps (--gap) that make the layout feel scattered. */
-.row       { --indent: 14vw; --gap: -0.38em; }   /* the "& Kristin" line */
-.p-date    { --indent: 26vw; --gap: 0.4em; }
-.p-note    { --indent: 44vw; --gap: 0.9em; }
-.p-button  { --indent: 0px;  --gap: 2rem; }
 
 /* =========================================================================
    Base
@@ -85,7 +59,7 @@ body {
   height: 100%;
   background: #1a1714;
   color: var(--text-color);
-  font-family: var(--font-serif);
+  font-family: var(--font-small);
   -webkit-font-smoothing: antialiased;
   -webkit-text-size-adjust: 100%;
   overflow: hidden;
@@ -118,119 +92,89 @@ button {
   background-size: cover;
   background-repeat: no-repeat;
   transform: scale(1.04);
+  transition: opacity var(--enter) ease, transform calc(var(--enter) * 2) ease-out;
 }
 
 .bg::after {
   content: "";
   position: absolute;
   inset: 0;
+  background: var(--bg-overlay);
 }
 
 .scene-home .bg { background-image: var(--bg-home), var(--bg-fallback); background-position: var(--bg-position-home); }
 .scene-rsvp .bg { background-image: var(--bg-rsvp), var(--bg-fallback); background-position: var(--bg-position-rsvp); }
 .scene-thanks .bg { background-image: var(--bg-thanks), var(--bg-fallback); background-position: var(--bg-position-thanks); }
-.scene-home .bg::after { background: var(--bg-overlay-home); }
-.scene-rsvp .bg::after { background: var(--bg-overlay-rsvp); }
-.scene-thanks .bg::after { background: var(--bg-overlay-thanks); }
 
 .content {
   position: relative;
-  flex: 1 1 100%;
-  min-width: 0;
-  max-width: 100%;
+  width: 100%;
   display: flex;
   flex-direction: column;
-  padding: var(--poster-top) var(--poster-left);
-  padding-top: calc(var(--poster-top) + env(safe-area-inset-top));
-  padding-bottom: calc(var(--poster-top) + env(safe-area-inset-bottom));
+  padding: var(--text-pad);
+  padding-top: calc(var(--text-pad) + env(safe-area-inset-top));
+  padding-bottom: calc(var(--text-pad) + env(safe-area-inset-bottom));
 }
 
 /* =========================================================================
-   Poster text (home + thanks)
+   Text
    ========================================================================= */
-.poster {
-  align-items: flex-start;
-  text-shadow: var(--text-halo);
+.home-text,
+.thanks-text {
+  justify-content: var(--text-justify);
+  align-items: var(--text-items);
+  text-align: var(--text-align);
+  transform: translateY(var(--text-shift-y));
+  text-shadow: var(--text-shadow);
 }
 
-.piece,
-.row {
-  margin: var(--gap, 0px) 0 0 var(--indent, 0px);
-  display: block;
-  transform: translate(var(--x, 0px), var(--y, 0px)) rotate(var(--r, 0deg));
-  transform-origin: left center;
+.eyebrow {
+  margin: 0 0 0.75rem;
+  font-size: var(--size-eyebrow);
+  letter-spacing: var(--tracking-eyebrow);
+  text-transform: lowercase;
 }
 
 .names {
   margin: 0;
-  display: flex;
-  flex-direction: column;
-  align-items: flex-start;
-  font-weight: 400;
-  line-height: 1;
+  font-family: var(--font-names);
+  font-size: var(--size-names);
+  font-weight: var(--weight-names);
+  font-style: var(--italic-names);
+  line-height: 1.05;
 }
 
-.row {
-  display: flex;
-  align-items: baseline;
-  gap: 0.15em;
-}
-
-.script {
-  font-family: var(--font-script);
-  font-size: var(--size-script);
-  font-weight: 400;
-  line-height: 0.9;
-  padding-right: 0.15em; /* room for the swash so it doesn't clip */
-}
-
-.p-amp {
-  font-family: var(--font-serif);
+.amp {
   font-style: italic;
-  font-size: var(--size-amp);
+  font-weight: 300;
 }
 
-.p-eyebrow {
-  margin-bottom: 0.5em;
-  font-style: italic;
-  font-size: var(--size-eyebrow);
-  letter-spacing: 0.06em;
-}
-
-.p-date {
+.date {
+  margin: 1rem 0 2rem;
+  font-family: var(--font-names);
   font-size: var(--size-date);
-  letter-spacing: 0.22em;
-  text-transform: uppercase;
-}
-
-.p-note {
-  font-size: var(--size-note);
-  letter-spacing: 0.04em;
-  line-height: 1.5;
-  opacity: 0.85;
+  letter-spacing: 0.08em;
 }
 
 /* =========================================================================
    Buttons
    ========================================================================= */
 .button {
-  border: 1px solid var(--button-border);
+  border: 0;
   border-radius: 999px;
   background: var(--button-bg);
   color: var(--button-color);
-  padding: 0.8rem 2.2rem;
+  padding: 0.9rem 2.4rem;
   font-size: 0.85rem;
-  letter-spacing: 0.22em;
+  letter-spacing: 0.18em;
   text-transform: uppercase;
+  font-weight: 500;
   min-height: 44px; /* comfortable tap target */
-  -webkit-backdrop-filter: blur(6px);
-  backdrop-filter: blur(6px);
-  text-shadow: none;
-  transition: transform 150ms ease, background 150ms ease;
+  transition: transform 150ms ease, opacity 150ms ease;
 }
 
 .button:active {
-  transform: translate(var(--x, 0px), var(--y, 0px)) rotate(var(--r, 0deg)) scale(0.97);
+  transform: scale(0.97);
 }
 
 .text-button {
@@ -251,26 +195,27 @@ button {
 .scene-rsvp .content {
   align-items: center;
   overflow-y: auto;
-  overflow-x: hidden;
   -webkit-overflow-scrolling: touch;
   overscroll-behavior: contain;
 }
 
 .rsvp-title {
-  margin: 0 0 0.35em;
-  font-size: clamp(2.75rem, 12vw, 5rem);
-  text-shadow: var(--text-halo);
+  margin: 0 0 1rem;
+  font-family: var(--font-names);
+  font-weight: var(--weight-names);
+  font-size: clamp(2rem, 8vw, 3.5rem);
+  text-shadow: var(--text-shadow);
 }
 
 .form-frame {
   width: 100%;
-  max-width: min(40rem, 100%);
+  max-width: 40rem;
   height: min(72dvh, 720px);
   flex: none;
   border-radius: 1rem;
   overflow: hidden;
   background: #fff;
-  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.35);
   margin-bottom: 1.25rem;
 }
 
@@ -283,45 +228,37 @@ button {
 
 /* =========================================================================
    Scene transitions
-   Leaving: pieces drift up and fade, one after another.
-   Entering: pieces rise in, one after another; bg settles.
+   Leaving: text drifts up and fades. Entering: text rises in, bg settles.
    ========================================================================= */
-.scene.is-leaving .piece {
-  animation: piece-out var(--leave) cubic-bezier(0.4, 0, 1, 1) forwards;
-  animation-delay: calc(var(--i, 0) * var(--stagger));
+.scene.is-leaving .content {
+  animation: text-out var(--leave) cubic-bezier(0.4, 0, 1, 1) forwards;
 }
 
 .scene.is-leaving .bg {
-  animation: bg-out var(--leave) ease forwards;
-  animation-delay: calc(var(--stagger) * 2);
+  opacity: 0;
+  transition: opacity var(--leave) ease;
 }
 
-.scene.is-entering .piece {
-  animation: piece-in var(--enter) cubic-bezier(0, 0, 0.2, 1) backwards;
-  animation-delay: calc(120ms + var(--i, 0) * var(--stagger));
+.scene.is-entering .content {
+  animation: text-in var(--enter) cubic-bezier(0, 0, 0.2, 1) backwards;
+  animation-delay: 150ms;
 }
 
 .scene.is-entering .bg {
   animation: bg-in var(--enter) ease-out backwards;
 }
 
-@keyframes piece-out {
+@keyframes text-out {
   to {
     opacity: 0;
-    transform: translate(var(--x, 0px), calc(var(--y, 0px) - 40px)) rotate(var(--r, 0deg));
+    transform: translateY(calc(var(--text-shift-y) - 48px));
   }
 }
 
-@keyframes piece-in {
+@keyframes text-in {
   from {
     opacity: 0;
-    transform: translate(var(--x, 0px), calc(var(--y, 0px) + 28px)) rotate(var(--r, 0deg));
-  }
-}
-
-@keyframes bg-out {
-  to {
-    opacity: 0;
+    transform: translateY(calc(var(--text-shift-y) + 32px));
   }
 }
 
@@ -336,7 +273,7 @@ button {
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .scene .piece,
+  .scene .content,
   .scene .bg {
     animation: none !important;
     transition: none !important;
