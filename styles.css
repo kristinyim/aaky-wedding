@@ -201,6 +201,9 @@ button {
   font-size: inherit;
   letter-spacing: 0;
 }
+/* the script font's numerals are drawn shorter than its letters, so the date
+   gets a small bump to look the same size as the place */
+.home-meta .date { font-size: 1.1em; }
 
 /* Layer 3: us */
 .couple-wrap {
@@ -254,6 +257,8 @@ button {
     bottom: calc(var(--couple-height) - var(--couple-sink) - var(--copy-overlap));
   }
   .home-copy .names { white-space: normal; }
+
+  .scene-home .button { font-size: 1.35rem; padding: 0.3em 1.2em 0.45em; }
 
   /* date / place: bottom-left, in front of us */
   .home-meta {
@@ -331,11 +336,11 @@ button {
   border-radius: 999px;
   background: var(--button-bg);
   color: var(--button-color);
-  padding: 1.05em 2.8em;
-  font-size: max(0.85rem, min(1.1vw, 2vh));
-  letter-spacing: 0.18em;
-  text-transform: uppercase;
-  font-weight: 500;
+  padding: 0.35em 1.4em 0.5em;
+  font-family: var(--font-script);
+  font-size: max(1.5rem, min(2.2vw, 4vh));
+  line-height: 1.2;
+  font-weight: 400;
   min-height: 44px; /* comfortable tap target */
   transition: transform 150ms ease, opacity 150ms ease;
 }
@@ -366,10 +371,10 @@ button {
 }
 
 .rsvp-title {
-  margin: 0 0 1rem;
-  font-family: var(--font-names);
-  font-weight: 700;
-  font-size: clamp(2rem, 8vw, 3.5rem);
+  margin: 0 0 0.2em;
+  font-family: var(--font-script);
+  font-weight: 400;
+  font-size: clamp(3rem, 10vw, 5rem);
   text-shadow: var(--text-shadow);
 }
 
