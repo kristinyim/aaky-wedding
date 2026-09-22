@@ -45,6 +45,8 @@
   --size-script-names: clamp(3rem, 15vw, 4.6rem);
   --size-script-date: clamp(1.3rem, 6vw, 1.8rem);
   --bg-position-rsvp: center;
+  --bg-color-rsvp: #fff;              /* RSVP page background (shows when there's no photo) */
+  --text-color-rsvp: #1a1714;
   --bg-position-thanks: center;
 
   /* Button */
@@ -115,7 +117,14 @@ button {
 }
 
 .scene-home .bg { background-image: var(--bg-home), var(--bg-fallback); background-position: var(--bg-position-home); }
-.scene-rsvp .bg { background-image: var(--bg-rsvp), var(--bg-fallback); background-position: var(--bg-position-rsvp); }
+.scene-rsvp .bg {
+  background-image: var(--bg-rsvp);
+  background-color: var(--bg-color-rsvp);
+  background-position: var(--bg-position-rsvp);
+  transform: none;
+}
+.scene-rsvp .bg::after { background: none; }
+.scene-rsvp { color: var(--text-color-rsvp); }
 .scene-thanks .bg { background-image: var(--bg-thanks), var(--bg-fallback); background-position: var(--bg-position-thanks); }
 
 /* Home on wide screens: the card carries the text, so only the button shows. */
@@ -235,7 +244,6 @@ button {
   font-family: var(--font-names);
   font-weight: var(--weight-names);
   font-size: clamp(2rem, 8vw, 3.5rem);
-  text-shadow: var(--text-shadow);
 }
 
 .form-frame {
@@ -246,7 +254,8 @@ button {
   border-radius: 1rem;
   overflow: hidden;
   background: #fff;
-  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.35);
+  border: 1px solid rgba(0, 0, 0, 0.08);
+  box-shadow: 0 16px 48px rgba(0, 0, 0, 0.1);
 }
 
 .form-frame iframe {
