@@ -31,7 +31,13 @@
   --bg-thanks: url("images/thanks.jpg");
   --bg-fallback: linear-gradient(160deg, #3b2f2a, #1a1714);
   --bg-overlay: rgba(0, 0, 0, 0.25); /* darkens the photo so text stays readable */
-  --bg-position-home: 55% 50%;      /* which part of the photo stays in view when cropped */
+  --bg-position-home: center;
+  /* The home image is a finished card with the text baked in, so it's shown whole
+     (letterboxed on white) instead of cropped. On phones, a portrait export will
+     look far better: drop it in as images/home-portrait.jpg and set fit to cover. */
+  --bg-home-portrait: url("images/home.jpg");
+  --bg-fit-home-portrait: contain;    /* contain | cover */
+  --bg-letterbox-home: #fff;
   --bg-position-rsvp: center;
   --bg-position-thanks: center;
 
@@ -105,6 +111,31 @@ button {
 .scene-home .bg { background-image: var(--bg-home), var(--bg-fallback); background-position: var(--bg-position-home); }
 .scene-rsvp .bg { background-image: var(--bg-rsvp), var(--bg-fallback); background-position: var(--bg-position-rsvp); }
 .scene-thanks .bg { background-image: var(--bg-thanks), var(--bg-fallback); background-position: var(--bg-position-thanks); }
+
+/* Home: the photo carries the text, so only the button shows. Delete this block
+   to bring the HTML text back. */
+.scene-home .bg {
+  background-image: var(--bg-home);
+  background-color: var(--bg-letterbox-home);
+  background-size: contain;
+  transform: none;
+}
+.scene-home .bg::after { background: none; }
+.scene-home .home-text > :not(.button) { display: none; }
+.scene-home .home-text {
+  justify-content: flex-end;
+  transform: none;
+}
+.scene-home .button {
+  background: #1a1714;
+  color: #fff;
+}
+@media (orientation: portrait) {
+  .scene-home .bg {
+    background-image: var(--bg-home-portrait);
+    background-size: var(--bg-fit-home-portrait);
+  }
+}
 
 .content {
   position: relative;
