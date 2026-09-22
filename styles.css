@@ -47,10 +47,6 @@
   --bg-position-rsvp: center;
   --bg-color-rsvp: #fff;              /* RSVP page background (shows when there's no photo) */
   --text-color-rsvp: #1a1714;
-  /* Notion draws a top bar (Share, ⋯) inside the embed that we can't style.
-     The frame is shifted up by this much so the bar is hidden behind the card's
-     edge. If a sliver of it still shows, increase; if the form's top is cut, decrease. */
-  --notion-topbar: 45px;
   --bg-position-thanks: center;
 
   /* Button */
@@ -265,8 +261,7 @@ button {
 .form-frame iframe {
   display: block;
   width: 100%;
-  height: calc(100% + var(--notion-topbar));
-  margin-top: calc(-1 * var(--notion-topbar));
+  height: 100%;
   border: 0;
 }
 
