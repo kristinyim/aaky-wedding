@@ -15,11 +15,14 @@
   <meta name="twitter:image" content="https://kristinyim.github.io/aaky-wedding/images/og.jpg" />
   <meta name="theme-color" content="#1a1714" />
   <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ctext y='.9em' font-size='90'%3E%F0%9F%92%8D%3C/text%3E%3C/svg%3E" />
-  <link rel="preconnect" href="https://fonts.googleapis.com" />
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <!-- Swap fonts here, then update --font-script / --font-names / --font-small in styles.css -->
-  <link href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,700;1,300;1,400&family=Inter:wght@400;500&display=swap" rel="stylesheet" />
+  <!-- The three things the first screen needs, fetched immediately -->
+  <link rel="preload" as="font" type="font/woff2" href="fonts/GreatVibes.woff2" crossorigin />
+  <link rel="preload" as="image" href="images/home-bg.jpg" />
+  <link rel="preload" as="image" href="images/couple.webp" />
   <link rel="stylesheet" href="styles.css" />
+  <!-- Secondary fonts (RSVP title, thank-you text, button) load without blocking the page -->
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@300;700&family=Inter:wght@500&display=swap" rel="stylesheet" media="print" onload="this.media='all'" />
 </head>
 <body>
 
@@ -38,7 +41,7 @@
       <p class="place">Huntington Beach</p>
     </div>
     <div class="couple-wrap" aria-hidden="true">
-      <img class="couple" src="images/couple.png" alt="" decoding="async" fetchpriority="high" />
+      <img class="couple" src="images/couple.webp" alt="" decoding="async" fetchpriority="high" />
     </div>
     <div class="content home-text">
       <button class="button" type="button" data-go="rsvp">RSVP</button>
