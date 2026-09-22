@@ -35,8 +35,9 @@
   /* The home image is a finished card with the text baked in, so it's shown whole
      (letterboxed on white) instead of cropped. On phones, a portrait export will
      look far better: drop it in as images/home-portrait.jpg and set fit to cover. */
+  --bg-fit-home: cover;               /* landscape screens: contain | cover */
   --bg-home-portrait: url("images/home.jpg");
-  --bg-fit-home-portrait: contain;    /* contain | cover */
+  --bg-fit-home-portrait: contain;    /* phones held upright: contain | cover */
   --bg-letterbox-home: #fff;
   --bg-position-rsvp: center;
   --bg-position-thanks: center;
@@ -117,7 +118,7 @@ button {
 .scene-home .bg {
   background-image: var(--bg-home);
   background-color: var(--bg-letterbox-home);
-  background-size: contain;
+  background-size: var(--bg-fit-home);
   transform: none;
 }
 .scene-home .bg::after { background: none; }
