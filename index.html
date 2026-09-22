@@ -7,7 +7,7 @@
   <meta name="description" content="The wedding of Anshul & Kristin, August 7." />
   <meta property="og:title" content="Anshul & Kristin" />
   <meta property="og:description" content="The wedding of Anshul & Kristin, August 7." />
-  <meta property="og:image" content="images/home.jpg" />
+  <meta property="og:image" content="images/home-bg.jpg" />
   <meta name="theme-color" content="#1a1714" />
   <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ctext y='.9em' font-size='90'%3E%F0%9F%92%8D%3C/text%3E%3C/svg%3E" />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
@@ -19,17 +19,23 @@
 <body>
 
   <!-- SCENE 1: HOME -------------------------------------------------------- -->
+  <!-- Three layers, back to front: background photo → text → cutout of us.
+       The text sits behind our heads like the printed card, and each layer
+       repositions per screen size (see the HOME section of styles.css). -->
   <section class="scene scene-home" id="home" data-scene="home">
     <div class="bg" aria-hidden="true"></div>
+    <div class="home-copy">
+      <p class="eyebrow">The wedding of</p>
+      <h1 class="names">Anshul <span class="amp">&amp;</span> Kristin</h1>
+    </div>
+    <div class="home-meta">
+      <p class="date">August 7, 2027</p>
+      <p class="place">Huntington Beach</p>
+    </div>
+    <div class="couple-wrap" aria-hidden="true">
+      <img class="couple" src="images/couple.png" alt="" decoding="async" fetchpriority="high" />
+    </div>
     <div class="content home-text">
-      <!-- On phones this text is drawn over the photo. On wider screens the
-           designed card (with the text baked in) is shown and this is hidden. -->
-      <div class="home-copy">
-        <p class="eyebrow">The wedding of</p>
-        <h1 class="names">Anshul <span class="amp">&amp;</span> Kristin</h1>
-        <p class="date">August 7, 2027</p>
-        <p class="place">Huntington Beach</p>
-      </div>
       <button class="button" type="button" data-go="rsvp">RSVP</button>
     </div>
   </section>

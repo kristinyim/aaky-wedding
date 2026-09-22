@@ -1,53 +1,48 @@
 /* =========================================================================
-   KNOBS — everything you'll want to play with lives here.
+   KNOBS — fonts, colors, sizes, images, timing.
    ========================================================================= */
 :root {
-  /* Fonts (load them in index.html first) */
-  --font-script: "Great Vibes", "Snell Roundhand", cursive;   /* home text on phones */
+  /* Fonts (load them in index.html first). Amoresa isn't a web font yet —
+     drop the .woff2/.otf into fonts/ and see the @font-face note below. */
+  --font-script: "Amoresa", "Great Vibes", "Snell Roundhand", cursive;
   --font-names: "Cormorant Garamond", "Georgia", serif;
   --font-small: "Inter", system-ui, sans-serif;
 
-  /* Sizes. clamp(min, preferred, max) scales with the screen. */
-  --size-eyebrow: clamp(0.75rem, 2.5vw, 0.95rem);
-  --size-names: clamp(2.75rem, 11vw, 6.5rem);
-  --size-date: clamp(1.1rem, 3.5vw, 1.6rem);
+  /* HOME — text */
+  --home-text-color: #fff;
+  --home-text-shadow: 0 2px 16px rgba(0, 0, 0, 0.35);
+  --size-eyebrow: clamp(1.5rem, 3.2vw, 2.6rem);
+  --size-names: clamp(3.4rem, 10vw, 9.5rem);
+  --size-meta: clamp(1.3rem, 2.6vw, 2.2rem);
+  --copy-top: 4vh;                 /* where the "The wedding of / names" block starts */
+  --meta-top: 68vh;                /* where the date / place row sits (wide screens) */
+  --meta-inset: 6vw;               /* distance of date / place from the side edges */
 
-  /* Text style */
-  --weight-names: 300;
-  --italic-names: normal;           /* normal | italic */
-  --tracking-eyebrow: 0.3em;
+  /* HOME — the cutout of us. Height is relative to the screen; it's pinned to the
+     bottom and centred. Sink hides the flat bottom edge of the cutout. */
+  --couple-height: 80vh;
+  --couple-sink: 2vh;
+  --couple-shift: 0px;             /* nudge left (negative) or right */
+
+  /* HOME — background photo */
+  --bg-home: url("images/home-bg.jpg");
+  --bg-position-home: center;
+  --bg-overlay-home: rgba(0, 0, 0, 0.12);
+
+  /* RSVP */
+  --bg-rsvp: url("images/rsvp.jpg");
+  --bg-position-rsvp: center;
+  --bg-color-rsvp: #fff;
+  --text-color-rsvp: #1a1714;
+
+  /* THANK YOU */
+  --bg-thanks: url("images/thanks.jpg");
+  --bg-position-thanks: center;
+  --bg-fallback: linear-gradient(160deg, #3b2f2a, #1a1714);
+  --bg-overlay: rgba(0, 0, 0, 0.25);
   --text-color: #fff;
   --text-shadow: 0 2px 24px rgba(0, 0, 0, 0.35);
-
-  /* Placement of the home text block inside the screen */
-  --text-align: center;             /* left | center | right */
-  --text-justify: center;           /* vertical: flex-start | center | flex-end */
-  --text-items: center;             /* horizontal: flex-start | center | flex-end */
   --text-pad: clamp(1.5rem, 6vw, 4rem);
-  --text-shift-y: -10vh;            /* nudge the block up (negative) or down */
-
-  /* Images. If a file is missing, the gradient shows instead. */
-  --bg-home: url("images/home.jpg");
-  --bg-rsvp: url("images/rsvp.jpg");
-  --bg-thanks: url("images/thanks.jpg");
-  --bg-fallback: linear-gradient(160deg, #3b2f2a, #1a1714);
-  --bg-overlay: rgba(0, 0, 0, 0.25); /* darkens the photo so text stays readable */
-  --bg-position-home: center;
-  /* HOME on wide screens: the designed card with the text baked in. */
-  --bg-fit-home: cover;                 /* contain | cover */
-  --bg-letterbox-home: #fff;            /* shows behind the card when using contain */
-  /* HOME on phones (the breakpoint is the @media at the bottom of this file):
-     a plain photo, cropped freely, with the text drawn on top. */
-  --bg-home-mobile: url("images/home-mobile.jpg");
-  --bg-position-home-mobile: 50% 40%;   /* which part of the photo stays in view */
-  --bg-overlay-home-mobile: linear-gradient(to top, rgba(0, 0, 0, 0.62), rgba(0, 0, 0, 0) 60%);
-  --size-script-eyebrow: clamp(1.4rem, 6.5vw, 2rem);
-  --size-script-names: clamp(3rem, 15vw, 4.6rem);
-  --size-script-date: clamp(1.3rem, 6vw, 1.8rem);
-  --bg-position-rsvp: center;
-  --bg-color-rsvp: #fff;              /* RSVP page background (shows when there's no photo) */
-  --text-color-rsvp: #1a1714;
-  --bg-position-thanks: center;
 
   /* Button */
   --button-bg: rgba(255, 255, 255, 0.92);
@@ -57,6 +52,14 @@
   --leave: 550ms;
   --enter: 700ms;
 }
+
+/* Amoresa: once the font file is in fonts/, uncomment this.
+@font-face {
+  font-family: "Amoresa";
+  src: url("fonts/Amoresa.woff2") format("woff2"), url("fonts/Amoresa.otf") format("opentype");
+  font-display: swap;
+}
+*/
 
 /* =========================================================================
    Base
@@ -106,7 +109,6 @@ button {
   background-size: cover;
   background-repeat: no-repeat;
   transform: scale(1.04);
-  transition: opacity var(--enter) ease, transform calc(var(--enter) * 2) ease-out;
 }
 
 .bg::after {
@@ -116,39 +118,11 @@ button {
   background: var(--bg-overlay);
 }
 
-.scene-home .bg { background-image: var(--bg-home), var(--bg-fallback); background-position: var(--bg-position-home); }
-.scene-rsvp .bg {
-  background-image: var(--bg-rsvp);
-  background-color: var(--bg-color-rsvp);
-  background-position: var(--bg-position-rsvp);
-  transform: none;
-}
-.scene-rsvp .bg::after { background: none; }
-.scene-rsvp { color: var(--text-color-rsvp); }
-.scene-thanks .bg { background-image: var(--bg-thanks), var(--bg-fallback); background-position: var(--bg-position-thanks); }
-
-/* Home on wide screens: the card carries the text, so only the button shows. */
-.scene-home .bg {
-  background-image: var(--bg-home);
-  background-color: var(--bg-letterbox-home);
-  background-size: var(--bg-fit-home);
-  transform: none;
-}
-.scene-home .bg::after { background: none; }
-.scene-home .home-copy { display: none; }
-.scene-home .home-text {
-  justify-content: flex-end;   /* bottom */
-  align-items: flex-end;       /* right */
-  transform: none;
-}
-.scene-home .button {
-  background: #1a1714;
-  color: #fff;
-}
-
 .content {
   position: relative;
-  width: 100%;
+  flex: 1 1 100%;
+  min-width: 0;
+  max-width: 100%;
   display: flex;
   flex-direction: column;
   padding: var(--text-pad);
@@ -157,30 +131,175 @@ button {
 }
 
 /* =========================================================================
-   Text
+   HOME
    ========================================================================= */
-.home-text,
+.scene-home {
+  color: var(--home-text-color);
+  text-shadow: var(--home-text-shadow);
+}
+
+.scene-home .bg {
+  background-image: var(--bg-home), var(--bg-fallback);
+  background-position: var(--bg-position-home);
+  transform: none;
+}
+.scene-home .bg::after { background: var(--bg-overlay-home); }
+
+/* Layer 2: the words (behind our heads) */
+.home-copy {
+  position: absolute;
+  z-index: 1;
+  left: 0;
+  right: 0;
+  top: calc(var(--copy-top) + env(safe-area-inset-top));
+  text-align: center;
+  font-family: var(--font-script);
+  padding: 0 var(--text-pad);
+}
+
+.home-copy .eyebrow {
+  margin: 0 0 -0.15em;
+  font-size: var(--size-eyebrow);
+  letter-spacing: 0;
+  text-transform: none;
+}
+
+.home-copy .names {
+  margin: 0;
+  font-family: var(--font-script);
+  font-size: var(--size-names);
+  font-weight: 400;
+  line-height: 1;
+  white-space: nowrap;
+}
+
+.home-copy .amp { font-size: 0.9em; }
+
+/* Date (left) and place (right), also behind us */
+.home-meta {
+  position: absolute;
+  z-index: 1;
+  left: var(--meta-inset);
+  right: var(--meta-inset);
+  top: var(--meta-top);
+  display: flex;
+  justify-content: space-between;
+  gap: 1rem;
+  font-family: var(--font-script);
+  font-size: var(--size-meta);
+  line-height: 1.2;
+}
+.home-meta .date,
+.home-meta .place {
+  margin: 0;
+  font-family: var(--font-script);
+  font-size: inherit;
+  letter-spacing: 0;
+}
+
+/* Layer 3: us */
+.couple-wrap {
+  position: absolute;
+  z-index: 2;
+  left: 0;
+  right: 0;
+  bottom: calc(-1 * var(--couple-sink));
+  display: flex;
+  justify-content: center;
+  pointer-events: none;
+}
+
+.couple {
+  display: block;
+  height: var(--couple-height);
+  width: auto;
+  max-width: var(--couple-max-width, none);   /* shrinks proportionally if it would be too wide */
+  transform: translateX(var(--couple-shift));
+}
+
+/* Layer 4: the button */
+.scene-home .content {
+  z-index: 3;
+  justify-content: flex-end;   /* bottom */
+  align-items: flex-end;       /* right */
+}
+
+.scene-home .button {
+  background: #1a1714;
+  color: #fff;
+  text-shadow: none;
+}
+
+/* ---- Phones: names stack on two lines, date / place move to the bottom-left
+        in front of us, and the cutout is sized to the narrower screen. ---- */
+@media (max-width: 767px) {
+  :root {
+    --size-eyebrow: clamp(1.4rem, 6.5vw, 2rem);
+    --size-names: clamp(3.4rem, 18vw, 5.2rem);
+    --size-meta: clamp(1.25rem, 5.5vw, 1.7rem);
+    --copy-top: 12vh;
+    --couple-height: 64vh;
+    --couple-max-width: 120vw;
+    --couple-sink: 1vh;
+  }
+
+  .home-copy .names { white-space: normal; }
+  .home-copy .names .amp::after { content: "\A"; white-space: pre; }  /* break after "&" */
+
+  .home-meta {
+    z-index: 3;                 /* in front of us */
+    top: auto;
+    bottom: calc(var(--text-pad) + env(safe-area-inset-bottom));
+    left: var(--text-pad);
+    right: auto;
+    flex-direction: column;
+    gap: 0;
+    text-shadow: 0 2px 18px rgba(0, 0, 0, 0.55);
+  }
+
+  /* a soft fade at the bottom so the date / place stay readable over us */
+  .couple-wrap::after {
+    content: "";
+    position: absolute;
+    inset: auto 0 0 0;
+    height: 30vh;
+    background: linear-gradient(to top, rgba(0, 0, 0, 0.55), rgba(0, 0, 0, 0));
+    pointer-events: none;
+  }
+
+  .scene-home .button {
+    background: var(--button-bg);
+    color: var(--button-color);
+  }
+}
+
+/* Very short landscape phones: shrink us so the names stay visible */
+@media (max-height: 480px) {
+  :root { --couple-height: 70vh; --copy-top: 2vh; }
+}
+
+/* =========================================================================
+   Shared text (thank-you scene)
+   ========================================================================= */
 .thanks-text {
-  justify-content: var(--text-justify);
-  align-items: var(--text-items);
-  text-align: var(--text-align);
-  transform: translateY(var(--text-shift-y));
+  justify-content: center;
+  align-items: center;
+  text-align: center;
   text-shadow: var(--text-shadow);
 }
 
 .eyebrow {
   margin: 0 0 0.75rem;
-  font-size: var(--size-eyebrow);
-  letter-spacing: var(--tracking-eyebrow);
-  text-transform: lowercase;
+  font-size: 0.85rem;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
 }
 
 .names {
   margin: 0;
   font-family: var(--font-names);
-  font-size: var(--size-names);
-  font-weight: var(--weight-names);
-  font-style: var(--italic-names);
+  font-size: clamp(2.75rem, 11vw, 6.5rem);
+  font-weight: 300;
   line-height: 1.05;
 }
 
@@ -192,7 +311,7 @@ button {
 .date {
   margin: 1rem 0 2rem;
   font-family: var(--font-names);
-  font-size: var(--size-date);
+  font-size: clamp(1.1rem, 3.5vw, 1.6rem);
   letter-spacing: 0.08em;
 }
 
@@ -217,24 +336,23 @@ button {
   transform: scale(0.97);
 }
 
-.text-button {
-  border: 0;
-  background: none;
-  margin-top: 1rem;
-  padding: 0.5rem 1rem;
-  min-height: 44px;
-  font-size: 0.8rem;
-  letter-spacing: 0.15em;
-  text-transform: uppercase;
-  opacity: 0.75;
-}
-
 /* =========================================================================
    RSVP scene — scrolls, because the form is tall
    ========================================================================= */
+.scene-rsvp { color: var(--text-color-rsvp); }
+
+.scene-rsvp .bg {
+  background-image: var(--bg-rsvp);
+  background-color: var(--bg-color-rsvp);
+  background-position: var(--bg-position-rsvp);
+  transform: none;
+}
+.scene-rsvp .bg::after { background: none; }
+
 .scene-rsvp .content {
   align-items: center;
   overflow-y: auto;
+  overflow-x: hidden;
   -webkit-overflow-scrolling: touch;
   overscroll-behavior: contain;
 }
@@ -242,13 +360,13 @@ button {
 .rsvp-title {
   margin: 0 0 1rem;
   font-family: var(--font-names);
-  font-weight: var(--weight-names);
+  font-weight: 300;
   font-size: clamp(2rem, 8vw, 3.5rem);
 }
 
 .form-frame {
   width: 100%;
-  max-width: 40rem;
+  max-width: min(40rem, 100%);
   flex: 1 1 auto;          /* fill the space under the title */
   min-height: 60dvh;
   border-radius: 1rem;
@@ -266,108 +384,50 @@ button {
 }
 
 /* =========================================================================
-   Scene transitions
-   Leaving: text drifts up and fades. Entering: text rises in, bg settles.
+   Thank-you scene
    ========================================================================= */
-.scene.is-leaving .content {
+.scene-thanks .bg {
+  background-image: var(--bg-thanks), var(--bg-fallback);
+  background-position: var(--bg-position-thanks);
+}
+
+/* =========================================================================
+   Scene transitions
+   Leaving: words drift up, we drift down, everything fades.
+   Entering: the reverse.
+   ========================================================================= */
+.scene.is-leaving :is(.content, .home-copy, .home-meta) {
   animation: text-out var(--leave) cubic-bezier(0.4, 0, 1, 1) forwards;
 }
-
+.scene.is-leaving .couple-wrap {
+  animation: couple-out var(--leave) cubic-bezier(0.4, 0, 1, 1) forwards;
+}
 .scene.is-leaving .bg {
-  opacity: 0;
-  transition: opacity var(--leave) ease;
+  animation: bg-out var(--leave) ease forwards;
 }
 
-.scene.is-entering .content {
+.scene.is-entering :is(.content, .home-copy, .home-meta) {
   animation: text-in var(--enter) cubic-bezier(0, 0, 0.2, 1) backwards;
   animation-delay: 150ms;
 }
-
+.scene.is-entering .couple-wrap {
+  animation: couple-in var(--enter) cubic-bezier(0, 0, 0.2, 1) backwards;
+  animation-delay: 100ms;
+}
 .scene.is-entering .bg {
   animation: bg-in var(--enter) ease-out backwards;
 }
 
-@keyframes text-out {
-  to {
-    opacity: 0;
-    transform: translateY(calc(var(--text-shift-y) - 48px));
-  }
-}
-
-@keyframes text-in {
-  from {
-    opacity: 0;
-    transform: translateY(calc(var(--text-shift-y) + 32px));
-  }
-}
-
-@keyframes bg-in {
-  from {
-    opacity: 0;
-    transform: scale(1.1);
-  }
-  to {
-    transform: scale(1.04);
-  }
-}
+@keyframes text-out { to { opacity: 0; transform: translateY(-48px); } }
+@keyframes text-in { from { opacity: 0; transform: translateY(32px); } }
+@keyframes couple-out { to { opacity: 0; transform: translateY(40px); } }
+@keyframes couple-in { from { opacity: 0; transform: translateY(40px); } }
+@keyframes bg-out { to { opacity: 0; } }
+@keyframes bg-in { from { opacity: 0; } }
 
 @media (prefers-reduced-motion: reduce) {
-  .scene .content,
-  .scene .bg {
+  .scene * {
     animation: none !important;
     transition: none !important;
-  }
-}
-
-/* =========================================================================
-   HOME ON PHONES — the breakpoint. Below this width the plain photo is used
-   and the text is drawn on top so it always fits the screen.
-   ========================================================================= */
-@media (max-width: 767px) {
-  .scene-home .bg {
-    background-image: var(--bg-home-mobile), var(--bg-fallback);
-    background-size: cover;
-    background-position: var(--bg-position-home-mobile);
-    background-color: #1a1714;
-  }
-  .scene-home .bg::after { background: var(--bg-overlay-home-mobile); }
-
-  .scene-home .home-text {
-    align-items: flex-start;   /* text sits bottom-left */
-    text-align: left;
-    text-shadow: 0 2px 18px rgba(0, 0, 0, 0.45);
-  }
-  .scene-home .home-copy {
-    display: block;
-    font-family: var(--font-script);
-    margin-bottom: 1.25rem;
-  }
-  .scene-home .eyebrow {
-    margin: 0 0 0.1em 0.2em;
-    font-size: var(--size-script-eyebrow);
-    letter-spacing: 0;
-    text-transform: none;
-  }
-  .scene-home .names {
-    font-family: var(--font-script);
-    font-size: var(--size-script-names);
-    font-weight: 400;
-    line-height: 1;
-    text-wrap: balance;
-  }
-  .scene-home .amp { font-style: normal; font-size: 1em; }
-  .scene-home .date,
-  .scene-home .place {
-    margin: 0;
-    font-family: var(--font-script);
-    font-size: var(--size-script-date);
-    letter-spacing: 0;
-    line-height: 1.3;
-  }
-  .scene-home .date { margin-top: 0.5em; }
-  .scene-home .button {
-    align-self: flex-end;      /* button stays bottom-right */
-    background: rgba(255, 255, 255, 0.92);
-    color: #1a1714;
   }
 }
