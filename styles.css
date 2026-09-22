@@ -23,7 +23,7 @@
   --text-justify: center;           /* vertical: flex-start | center | flex-end */
   --text-items: center;             /* horizontal: flex-start | center | flex-end */
   --text-pad: clamp(1.5rem, 6vw, 4rem);
-  --text-shift-y: 0px;              /* nudge the block up (negative) or down */
+  --text-shift-y: -10vh;            /* nudge the block up (negative) or down */
 
   /* Images. If a file is missing, the gradient shows instead. */
   --bg-home: url("images/home.jpg");
@@ -31,7 +31,9 @@
   --bg-thanks: url("images/thanks.jpg");
   --bg-fallback: linear-gradient(160deg, #3b2f2a, #1a1714);
   --bg-overlay: rgba(0, 0, 0, 0.25); /* darkens the photo so text stays readable */
-  --bg-position: center;
+  --bg-position-home: 55% 50%;      /* which part of the photo stays in view when cropped */
+  --bg-position-rsvp: center;
+  --bg-position-thanks: center;
 
   /* Button */
   --button-bg: rgba(255, 255, 255, 0.92);
@@ -87,7 +89,6 @@ button {
   position: absolute;
   inset: 0;
   background-color: #1a1714;
-  background-position: var(--bg-position);
   background-size: cover;
   background-repeat: no-repeat;
   transform: scale(1.04);
@@ -101,9 +102,9 @@ button {
   background: var(--bg-overlay);
 }
 
-.scene-home .bg { background-image: var(--bg-home), var(--bg-fallback); }
-.scene-rsvp .bg { background-image: var(--bg-rsvp), var(--bg-fallback); }
-.scene-thanks .bg { background-image: var(--bg-thanks), var(--bg-fallback); }
+.scene-home .bg { background-image: var(--bg-home), var(--bg-fallback); background-position: var(--bg-position-home); }
+.scene-rsvp .bg { background-image: var(--bg-rsvp), var(--bg-fallback); background-position: var(--bg-position-rsvp); }
+.scene-thanks .bg { background-image: var(--bg-thanks), var(--bg-fallback); background-position: var(--bg-position-thanks); }
 
 .content {
   position: relative;
