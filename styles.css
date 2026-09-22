@@ -14,18 +14,18 @@
   /* All sizes are % of the screen (vw = % of width, vh = % of height) so the
      layout scales uniformly. min() picks the smaller so ultrawide or very tall
      screens don't blow one axis up. */
-  --size-eyebrow: min(4vw, 7vh);
-  --size-names: min(12.5vw, 22vh);
-  --size-meta: min(2.6vw, 4.6vh);
-  --copy-top: 4vh;                 /* where the "The wedding of / names" block starts */
-  --meta-top: 42vh;                /* where the date / place row sits (wide screens) — about shoulder height */
+  --size-eyebrow: min(4vw, 7dvh);
+  --size-names: min(12.5vw, 22dvh);
+  --size-meta: min(2.6vw, 4.6dvh);
+  --copy-top: 4dvh;                 /* where the "The wedding of / names" block starts */
+  --meta-top: 42dvh;                /* where the date / place row sits (wide screens) — about shoulder height */
   --meta-inset: 6vw;               /* distance of date / place from the side edges */
 
   /* HOME — the cutout of us. Height is relative to the screen; it's pinned to the
      bottom and centred. Sink hides the flat bottom edge of the cutout. */
-  --couple-height: 80vh;
+  --couple-height: 80dvh;
   --couple-max-width: 90vw;        /* on narrow landscape screens, shrink rather than overflow */
-  --couple-sink: 2vh;
+  --couple-sink: 2dvh;
   --couple-shift: -6vw;            /* nudge left (negative) or right */
 
   /* HOME — background photo */
@@ -47,7 +47,7 @@
   --bg-overlay: rgba(0, 0, 0, 0.25);
   --text-color: #fff;
   --text-shadow: 0 2px 24px rgba(0, 0, 0, 0.35);
-  --text-pad: min(6vw, 6vh);       /* button distance from the corner */
+  --text-pad: min(6vw, 6dvh);       /* button distance from the corner */
 
   /* Button */
   --button-bg: rgba(255, 255, 255, 0.92);
@@ -239,22 +239,25 @@ button {
 /* Any screen held upright (phones and tablets) gets the stacked layout. */
 @media (max-width: 767px), (orientation: portrait) {
   :root {
-    --size-eyebrow: min(9vw, 4.5vh);
-    --size-names: min(24vw, 12vh);
-    --size-meta: min(7.5vw, 3.8vh);
+    --size-eyebrow: min(9vw, 4.5dvh);
+    --size-names: min(24vw, 12dvh);
+    --size-meta: min(7.5vw, 3.8dvh);
     --text-pad: 6vw;
-    --couple-height: 64vh;          /* full size; the sides can crop off the screen */
+    --couple-height: 64dvh;          /* full size; the sides can crop off the screen */
     --couple-max-width: none;
-    --copy-overlap: -3vh;           /* how far the names dip behind our heads (negative = gap above) */
+    --copy-overlap: -3dvh;           /* how far the names dip behind our heads (negative = gap above) */
     --couple-shift: -8vw;
-    --couple-sink: 1vh;
+    --couple-sink: 1dvh;
   }
 
   /* anchor the words to the top of the cutout, not the top of the screen, so the
      overlap with our heads is the same on short and tall phones */
   .home-copy {
-    top: auto;
+    top: calc(env(safe-area-inset-top) + 1dvh);
     bottom: calc(var(--couple-height) - var(--couple-sink) - var(--copy-overlap));
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;   /* hugs the cutout; can't climb above the safe area */
   }
   .home-copy .names { white-space: normal; }
 
@@ -277,7 +280,7 @@ button {
     content: "";
     position: absolute;
     inset: auto 0 0 0;
-    height: 30vh;
+    height: 30dvh;
     background: linear-gradient(to top, rgba(0, 0, 0, 0.55), rgba(0, 0, 0, 0));
     pointer-events: none;
   }
@@ -288,7 +291,7 @@ button {
 
 /* Very short landscape phones: shrink us so the names stay visible */
 @media (max-height: 480px) {
-  :root { --couple-height: 70vh; --copy-top: 2vh; }
+  :root { --couple-height: 70dvh; --copy-top: 2dvh; }
 }
 
 /* =========================================================================
@@ -338,7 +341,7 @@ button {
   color: var(--button-color);
   padding: 0.35em 1.4em 0.5em;
   font-family: var(--font-script);
-  font-size: max(1.5rem, min(2.2vw, 4vh));
+  font-size: max(1.5rem, min(2.2vw, 4dvh));
   line-height: 1.2;
   font-weight: 400;
   min-height: 44px; /* comfortable tap target */
@@ -431,10 +434,10 @@ button {
   animation: bg-in var(--enter) ease-out backwards;
 }
 
-@keyframes text-out { to { opacity: 0; transform: translateY(-6vh); } }
-@keyframes text-in { from { opacity: 0; transform: translateY(4vh); } }
-@keyframes couple-out { to { opacity: 0; transform: translateY(5vh); } }
-@keyframes couple-in { from { opacity: 0; transform: translateY(5vh); } }
+@keyframes text-out { to { opacity: 0; transform: translateY(-6dvh); } }
+@keyframes text-in { from { opacity: 0; transform: translateY(4dvh); } }
+@keyframes couple-out { to { opacity: 0; transform: translateY(5dvh); } }
+@keyframes couple-in { from { opacity: 0; transform: translateY(5dvh); } }
 @keyframes bg-out { to { opacity: 0; } }
 @keyframes bg-in { from { opacity: 0; } }
 
