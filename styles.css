@@ -11,22 +11,22 @@
   /* HOME — text */
   --home-text-color: #fff;
   --home-text-shadow: 0 2px 16px rgba(0, 0, 0, 0.35);
-  /* All sizes are % of the screen (vw = % of width, vh = % of height) so the
-     layout scales uniformly. min() picks the smaller so ultrawide or very tall
-     screens don't blow one axis up. */
-  --size-eyebrow: min(4vw, 7dvh);
-  --size-names: min(12.5vw, 22dvh);
-  --size-meta: min(2.6vw, 4.6dvh);
-  --copy-top: 4dvh;                 /* where the "The wedding of / names" block starts */
-  --meta-top: 42dvh;                /* where the date / place row sits (wide screens) — about shoulder height */
-  --meta-inset: 6vw;               /* distance of date / place from the side edges */
+  /* All sizes are % of the visible screen (cqw = % of width, cqh = % of height)
+     so the layout scales uniformly. min() picks the smaller so ultrawide or very
+     tall screens don't blow one axis up. */
+  --size-eyebrow: min(4cqw, 7cqh);
+  --size-names: min(12.5cqw, 22cqh);
+  --size-meta: min(2.6cqw, 4.6cqh);
+  --copy-top: 4cqh;                 /* where the "The wedding of / names" block starts */
+  --meta-top: 42cqh;                /* where the date / place row sits (wide screens) — about shoulder height */
+  --meta-inset: 6cqw;               /* distance of date / place from the side edges */
 
   /* HOME — the cutout of us. Height is relative to the screen; it's pinned to the
      bottom and centred. Sink hides the flat bottom edge of the cutout. */
-  --couple-height: 80dvh;
-  --couple-max-width: 90vw;        /* on narrow landscape screens, shrink rather than overflow */
-  --couple-sink: 2dvh;
-  --couple-shift: -6vw;            /* nudge left (negative) or right */
+  --couple-height: 80cqh;
+  --couple-max-width: 90cqw;        /* on narrow landscape screens, shrink rather than overflow */
+  --couple-sink: 2cqh;
+  --couple-shift: -6cqw;            /* nudge left (negative) or right */
 
   /* HOME — background photo */
   --bg-home: url("images/home-bg.jpg");
@@ -47,7 +47,7 @@
   --bg-overlay: rgba(0, 0, 0, 0.25);
   --text-color: #fff;
   --text-shadow: 0 2px 24px rgba(0, 0, 0, 0.35);
-  --text-pad: min(6vw, 6dvh);       /* button distance from the corner */
+  --text-pad: min(6cqw, 6cqh);       /* button distance from the corner */
 
   /* Button */
   --button-bg: rgba(255, 255, 255, 0.92);
@@ -97,8 +97,8 @@ button {
 /* Each scene is a full-screen layer. Only one is visible at a time. */
 .scene {
   position: fixed;
-  inset: 0;
-  height: 100dvh;
+  inset: 0;                 /* fills exactly what's visible, toolbars or not */
+  container-type: size;     /* everything inside is sized as a % of this box (cqw / cqh) */
   display: flex;
   overflow: hidden;
 }
@@ -189,7 +189,7 @@ button {
   top: var(--meta-top);
   display: flex;
   justify-content: space-between;
-  gap: 2vw;
+  gap: 2cqw;
   font-family: var(--font-script);
   font-size: var(--size-meta);
   line-height: 1.2;
@@ -239,21 +239,21 @@ button {
 /* Any screen held upright (phones and tablets) gets the stacked layout. */
 @media (max-width: 767px), (orientation: portrait) {
   :root {
-    --size-eyebrow: min(9vw, 4.5dvh);
-    --size-names: min(24vw, 12dvh);
-    --size-meta: min(7.5vw, 3.8dvh);
-    --text-pad: 6vw;
-    --couple-height: 64dvh;          /* full size; the sides can crop off the screen */
+    --size-eyebrow: min(9cqw, 4.5cqh);
+    --size-names: min(24cqw, 12cqh);
+    --size-meta: min(7.5cqw, 3.8cqh);
+    --text-pad: 6cqw;
+    --couple-height: 64cqh;          /* full size; the sides can crop off the screen */
     --couple-max-width: none;
-    --copy-overlap: -3dvh;           /* how far the names dip behind our heads (negative = gap above) */
-    --couple-shift: -8vw;
-    --couple-sink: 1dvh;
+    --copy-overlap: -3cqh;           /* how far the names dip behind our heads (negative = gap above) */
+    --couple-shift: -8cqw;
+    --couple-sink: 1cqh;
   }
 
   /* anchor the words to the top of the cutout, not the top of the screen, so the
      overlap with our heads is the same on short and tall phones */
   .home-copy {
-    top: calc(env(safe-area-inset-top) + 1dvh);
+    top: calc(env(safe-area-inset-top) + 1cqh);
     bottom: calc(var(--couple-height) - var(--couple-sink) - var(--copy-overlap));
     display: flex;
     flex-direction: column;
@@ -278,7 +278,7 @@ button {
     content: "";
     position: absolute;
     inset: auto 0 0 0;
-    height: 30dvh;
+    height: 30cqh;
     background: linear-gradient(to top, rgba(0, 0, 0, 0.55), rgba(0, 0, 0, 0));
     pointer-events: none;
   }
@@ -289,7 +289,7 @@ button {
 
 /* Very short landscape phones: shrink us so the names stay visible */
 @media (max-height: 480px) {
-  :root { --couple-height: 70dvh; --copy-top: 2dvh; }
+  :root { --couple-height: 70cqh; --copy-top: 2cqh; }
 }
 
 /* =========================================================================
@@ -312,7 +312,7 @@ button {
 .names {
   margin: 0;
   font-family: var(--font-names);
-  font-size: clamp(2.75rem, 11vw, 6.5rem);
+  font-size: clamp(2.75rem, 11cqw, 6.5rem);
   font-weight: 300;
   line-height: 1.05;
 }
@@ -325,7 +325,7 @@ button {
 .date {
   margin: 1rem 0 2rem;
   font-family: var(--font-names);
-  font-size: clamp(1.1rem, 3.5vw, 1.6rem);
+  font-size: clamp(1.1rem, 3.5cqw, 1.6rem);
   letter-spacing: 0.08em;
 }
 
@@ -338,7 +338,7 @@ button {
   background: var(--button-bg);
   color: var(--button-color);
   padding: 1.05em 2.8em;
-  font-size: max(0.85rem, min(1.1vw, 2dvh));
+  font-size: max(0.85rem, min(1.1cqw, 2cqh));
   letter-spacing: 0.18em;
   text-transform: uppercase;
   font-weight: 500;
@@ -375,7 +375,7 @@ button {
   margin: 0 0 1rem;
   font-family: var(--font-names);
   font-weight: 700;
-  font-size: clamp(2rem, 8vw, 3.5rem);
+  font-size: clamp(2rem, 8cqw, 3.5rem);
   text-shadow: var(--text-shadow);
 }
 
@@ -383,7 +383,7 @@ button {
   width: 100%;
   max-width: min(40rem, 100%);
   flex: 1 1 auto;          /* fill the space under the title */
-  min-height: 60dvh;
+  min-height: 60cqh;
   border-radius: 1rem;
   overflow: hidden;
   background: #fff;
@@ -432,10 +432,10 @@ button {
   animation: bg-in var(--enter) ease-out backwards;
 }
 
-@keyframes text-out { to { opacity: 0; transform: translateY(-6dvh); } }
-@keyframes text-in { from { opacity: 0; transform: translateY(4dvh); } }
-@keyframes couple-out { to { opacity: 0; transform: translateY(5dvh); } }
-@keyframes couple-in { from { opacity: 0; transform: translateY(5dvh); } }
+@keyframes text-out { to { opacity: 0; transform: translateY(-6cqh); } }
+@keyframes text-in { from { opacity: 0; transform: translateY(4cqh); } }
+@keyframes couple-out { to { opacity: 0; transform: translateY(5cqh); } }
+@keyframes couple-in { from { opacity: 0; transform: translateY(5cqh); } }
 @keyframes bg-out { to { opacity: 0; } }
 @keyframes bg-in { from { opacity: 0; } }
 
