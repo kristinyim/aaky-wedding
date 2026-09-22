@@ -216,7 +216,7 @@ button {
     --size-eyebrow: clamp(1.9rem, 9vw, 2.8rem);
     --size-names: clamp(4.4rem, 24vw, 7rem);
     --couple-height: 64vh;          /* full size; the sides can crop off the screen */
-    --copy-overlap: -1vh;           /* how far the names dip behind our heads (negative = gap above) */
+    --copy-overlap: -3vh;           /* how far the names dip behind our heads (negative = gap above) */
     --couple-shift: -8vw;
     --couple-sink: 1vh;
   }
