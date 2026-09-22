@@ -11,9 +11,12 @@
   /* HOME — text */
   --home-text-color: #fff;
   --home-text-shadow: 0 2px 16px rgba(0, 0, 0, 0.35);
-  --size-eyebrow: clamp(1.8rem, 4vw, 3.4rem);
-  --size-names: clamp(3.8rem, 12.5vw, 12rem);
-  --size-meta: clamp(1.3rem, 2.6vw, 2.2rem);
+  /* All sizes are % of the screen (vw = % of width, vh = % of height) so the
+     layout scales uniformly. min() picks the smaller so ultrawide or very tall
+     screens don't blow one axis up. */
+  --size-eyebrow: min(4vw, 7vh);
+  --size-names: min(12.5vw, 22vh);
+  --size-meta: min(2.6vw, 4.6vh);
   --copy-top: 4vh;                 /* where the "The wedding of / names" block starts */
   --meta-top: 42vh;                /* where the date / place row sits (wide screens) — about shoulder height */
   --meta-inset: 6vw;               /* distance of date / place from the side edges */
@@ -21,6 +24,7 @@
   /* HOME — the cutout of us. Height is relative to the screen; it's pinned to the
      bottom and centred. Sink hides the flat bottom edge of the cutout. */
   --couple-height: 80vh;
+  --couple-max-width: 90vw;        /* on narrow landscape screens, shrink rather than overflow */
   --couple-sink: 2vh;
   --couple-shift: -6vw;            /* nudge left (negative) or right */
 
@@ -43,7 +47,7 @@
   --bg-overlay: rgba(0, 0, 0, 0.25);
   --text-color: #fff;
   --text-shadow: 0 2px 24px rgba(0, 0, 0, 0.35);
-  --text-pad: clamp(1.5rem, 6vw, 4rem);
+  --text-pad: min(6vw, 6vh);       /* button distance from the corner */
 
   /* Button */
   --button-bg: rgba(255, 255, 255, 0.92);
@@ -185,7 +189,7 @@ button {
   top: var(--meta-top);
   display: flex;
   justify-content: space-between;
-  gap: 1rem;
+  gap: 2vw;
   font-family: var(--font-script);
   font-size: var(--size-meta);
   line-height: 1.2;
@@ -229,12 +233,15 @@ button {
 
 /* ---- Phones: names stack on two lines, date / place move to the bottom-left
         in front of us, and the cutout is sized to the narrower screen. ---- */
-@media (max-width: 767px) {
+/* Any screen held upright (phones and tablets) gets the stacked layout. */
+@media (max-width: 767px), (orientation: portrait) {
   :root {
-    --size-eyebrow: clamp(1.9rem, 9vw, 2.8rem);
-    --size-names: clamp(4.4rem, 24vw, 7rem);
-    --size-meta: clamp(1.6rem, 7.5vw, 2.3rem);
+    --size-eyebrow: min(9vw, 4.5vh);
+    --size-names: min(24vw, 12vh);
+    --size-meta: min(7.5vw, 3.8vh);
+    --text-pad: 6vw;
     --couple-height: 64vh;          /* full size; the sides can crop off the screen */
+    --couple-max-width: none;
     --copy-overlap: -3vh;           /* how far the names dip behind our heads (negative = gap above) */
     --couple-shift: -8vw;
     --couple-sink: 1vh;
@@ -324,8 +331,8 @@ button {
   border-radius: 999px;
   background: var(--button-bg);
   color: var(--button-color);
-  padding: 0.9rem 2.4rem;
-  font-size: 0.85rem;
+  padding: 1.05em 2.8em;
+  font-size: max(0.85rem, min(1.1vw, 2vh));
   letter-spacing: 0.18em;
   text-transform: uppercase;
   font-weight: 500;
@@ -419,10 +426,10 @@ button {
   animation: bg-in var(--enter) ease-out backwards;
 }
 
-@keyframes text-out { to { opacity: 0; transform: translateY(-48px); } }
-@keyframes text-in { from { opacity: 0; transform: translateY(32px); } }
-@keyframes couple-out { to { opacity: 0; transform: translateY(40px); } }
-@keyframes couple-in { from { opacity: 0; transform: translateY(40px); } }
+@keyframes text-out { to { opacity: 0; transform: translateY(-6vh); } }
+@keyframes text-in { from { opacity: 0; transform: translateY(4vh); } }
+@keyframes couple-out { to { opacity: 0; transform: translateY(5vh); } }
+@keyframes couple-in { from { opacity: 0; transform: translateY(5vh); } }
 @keyframes bg-out { to { opacity: 0; } }
 @keyframes bg-in { from { opacity: 0; } }
 
