@@ -61,6 +61,15 @@
     location.hash = "/" + btn.dataset.go;
   });
 
+  // Best effort: if the Notion frame navigates after a submission, move on to
+  // the thank-you scene. (The first load is the form itself, so skip that one.)
+  const form = document.getElementById("rsvp-form");
+  let formLoads = 0;
+  form?.addEventListener("load", () => {
+    formLoads += 1;
+    if (formLoads > 1 && current?.dataset.scene === "rsvp") location.hash = "/thanks";
+  });
+
   // Hash → scene (covers buttons, back/forward, and typed URLs)
   window.addEventListener("hashchange", () => show(sceneFromHash()));
 

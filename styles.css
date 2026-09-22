@@ -241,13 +241,12 @@ button {
 .form-frame {
   width: 100%;
   max-width: 40rem;
-  height: min(72dvh, 720px);
-  flex: none;
+  flex: 1 1 auto;          /* fill the space under the title */
+  min-height: 60dvh;
   border-radius: 1rem;
   overflow: hidden;
   background: #fff;
   box-shadow: 0 20px 60px rgba(0, 0, 0, 0.35);
-  margin-bottom: 1.25rem;
 }
 
 .form-frame iframe {
