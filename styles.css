@@ -13,7 +13,10 @@
   --home-text-shadow: 0 2px 16px rgba(0, 0, 0, 0.35);
   --size-eyebrow: clamp(1.8rem, 4vw, 3.4rem);
   --size-names: clamp(3.8rem, 12.5vw, 12rem);
+  --size-meta: clamp(1.3rem, 2.6vw, 2.2rem);
   --copy-top: 4vh;                 /* where the "The wedding of / names" block starts */
+  --meta-top: 42vh;                /* where the date / place row sits (wide screens) — about shoulder height */
+  --meta-inset: 6vw;               /* distance of date / place from the side edges */
 
   /* HOME — the cutout of us. Height is relative to the screen; it's pinned to the
      bottom and centred. Sink hides the flat bottom edge of the cutout. */
@@ -173,6 +176,28 @@ button {
 
 .home-copy .amp { font-size: 0.9em; }
 
+/* Date (left) and place (right), also behind us */
+.home-meta {
+  position: absolute;
+  z-index: 1;
+  left: var(--meta-inset);
+  right: var(--meta-inset);
+  top: var(--meta-top);
+  display: flex;
+  justify-content: space-between;
+  gap: 1rem;
+  font-family: var(--font-script);
+  font-size: var(--size-meta);
+  line-height: 1.2;
+}
+.home-meta .date,
+.home-meta .place {
+  margin: 0;
+  font-family: var(--font-script);
+  font-size: inherit;
+  letter-spacing: 0;
+}
+
 /* Layer 3: us */
 .couple-wrap {
   position: absolute;
@@ -200,14 +225,7 @@ button {
   align-items: flex-end;       /* right */
 }
 
-.scene-home .button {
-  text-shadow: none;
-  text-transform: none;
-  letter-spacing: 0.02em;
-  font-size: 0.95rem;
-  padding: 0.9rem 1.8rem;
-  max-width: 100%;
-}
+.scene-home .button { text-shadow: none; }
 
 /* ---- Phones: names stack on two lines, date / place move to the bottom-left
         in front of us, and the cutout is sized to the narrower screen. ---- */
@@ -215,6 +233,7 @@ button {
   :root {
     --size-eyebrow: clamp(1.9rem, 9vw, 2.8rem);
     --size-names: clamp(4.4rem, 24vw, 7rem);
+    --size-meta: clamp(1.6rem, 7.5vw, 2.3rem);
     --couple-height: 64vh;          /* full size; the sides can crop off the screen */
     --copy-overlap: -3vh;           /* how far the names dip behind our heads (negative = gap above) */
     --couple-shift: -8vw;
@@ -228,7 +247,28 @@ button {
     bottom: calc(var(--couple-height) - var(--couple-sink) - var(--copy-overlap));
   }
   .home-copy .names { white-space: normal; }
-  .scene-home .content { align-items: center; }
+
+  /* date / place: bottom-left, in front of us */
+  .home-meta {
+    z-index: 3;
+    top: auto;
+    bottom: calc(var(--text-pad) + env(safe-area-inset-bottom));
+    left: var(--text-pad);
+    right: auto;
+    flex-direction: column;
+    gap: 0;
+    text-shadow: 0 2px 18px rgba(0, 0, 0, 0.55);
+  }
+
+  /* a soft fade at the bottom so the date / place stay readable over us */
+  .couple-wrap::after {
+    content: "";
+    position: absolute;
+    inset: auto 0 0 0;
+    height: 30vh;
+    background: linear-gradient(to top, rgba(0, 0, 0, 0.55), rgba(0, 0, 0, 0));
+    pointer-events: none;
+  }
   .home-copy .names .amp::after { content: "\A"; white-space: pre; }  /* break after "&" */
 
 
@@ -357,7 +397,7 @@ button {
    Leaving: words drift up, we drift down, everything fades.
    Entering: the reverse.
    ========================================================================= */
-.scene.is-leaving :is(.content, .home-copy) {
+.scene.is-leaving :is(.content, .home-copy, .home-meta) {
   animation: text-out var(--leave) cubic-bezier(0.4, 0, 1, 1) forwards;
 }
 .scene.is-leaving .couple-wrap {
@@ -367,7 +407,7 @@ button {
   animation: bg-out var(--leave) ease forwards;
 }
 
-.scene.is-entering :is(.content, .home-copy) {
+.scene.is-entering :is(.content, .home-copy, .home-meta) {
   animation: text-in var(--enter) cubic-bezier(0, 0, 0.2, 1) backwards;
   animation-delay: 150ms;
 }
