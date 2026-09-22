@@ -123,7 +123,8 @@ button {
 .scene-home .bg::after { background: none; }
 .scene-home .home-text > :not(.button) { display: none; }
 .scene-home .home-text {
-  justify-content: flex-end;
+  justify-content: flex-end;   /* bottom */
+  align-items: flex-end;       /* right */
   transform: none;
 }
 .scene-home .button {
