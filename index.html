@@ -12,8 +12,8 @@
   <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ctext y='.9em' font-size='90'%3E%F0%9F%92%8D%3C/text%3E%3C/svg%3E" />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <!-- Swap fonts here, then update --font-names / --font-small in styles.css -->
-  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,300;1,400&family=Inter:wght@400;500&display=swap" rel="stylesheet" />
+  <!-- Swap fonts here, then update --font-script / --font-names / --font-small in styles.css -->
+  <link href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,300;1,400&family=Inter:wght@400;500&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="styles.css" />
 </head>
 <body>
@@ -22,9 +22,14 @@
   <section class="scene scene-home" id="home" data-scene="home">
     <div class="bg" aria-hidden="true"></div>
     <div class="content home-text">
-      <p class="eyebrow">the wedding of</p>
-      <h1 class="names">Anshul <span class="amp">&amp;</span> Kristin</h1>
-      <p class="date">August 7</p>
+      <!-- On phones this text is drawn over the photo. On wider screens the
+           designed card (with the text baked in) is shown and this is hidden. -->
+      <div class="home-copy">
+        <p class="eyebrow">The wedding of</p>
+        <h1 class="names">Anshul <span class="amp">&amp;</span> Kristin</h1>
+        <p class="date">August 7, 2027</p>
+        <p class="place">Huntington Beach</p>
+      </div>
       <button class="button" type="button" data-go="rsvp">RSVP</button>
     </div>
   </section>
