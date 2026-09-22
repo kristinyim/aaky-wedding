@@ -235,8 +235,8 @@ button {
     --size-names: clamp(4.4rem, 24vw, 7rem);
     --size-meta: clamp(1.6rem, 7.5vw, 2.3rem);
     --couple-height: 64vh;          /* full size; the sides can crop off the screen */
-    --copy-overlap: 3vh;            /* how far the names dip behind our heads */
-    --couple-shift: -4vw;
+    --copy-overlap: -1vh;           /* how far the names dip behind our heads (negative = gap above) */
+    --couple-shift: -8vw;
     --couple-sink: 1vh;
   }
 
